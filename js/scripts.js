@@ -32,15 +32,17 @@ var Hangman = {
 
 $(document).ready(function() {
   var currentHangman;
-  var gamestatus = 0;
+  var gamestatus = 1;
   $("#create-a-game").click(function () {
-    var listOfWords = ["uncopyrightable", "ambidextrious", "troublemaking", "metalwork"];
+    var listOfWords = ["uncopyrightable", "hunters", "troublemaking", "metalwork", "boyfriends", "clothespins"];
 
     var myHangman = Object.create(Hangman)
-    myHangman.initialize(listOfWords[parseInt(Math.random()*4)]);
+    myHangman.initialize(listOfWords[parseInt(Math.random()*6)]);
     myHangman.blankArray();
     currentHangman = myHangman;
-    console.log(currentHangman.result);
+
+    $("#default-image").show();
+    $("#new-game").show();
   });
 
   $("form#add-letter").submit(function (event) {
@@ -48,6 +50,8 @@ $(document).ready(function() {
 
     var userInput = $("input#input-letter").val();
     var output = currentHangman.matchesLetters(userInput);
+
+    $("#input-letter").val('');
 
     if (output === false) {
       alert("Try again.");
@@ -57,6 +61,7 @@ $(document).ready(function() {
       } else {
         alert("GAME OVER");
       }
+      $("#default-image").hide();
       $("#image").empty().append("<img src='img/hangman" + gamestatus + ".png'>");
 
     } else {
@@ -65,7 +70,3 @@ $(document).ready(function() {
 
   });
 });
-
-
-
-

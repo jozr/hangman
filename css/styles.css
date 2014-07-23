@@ -1,4 +1,6 @@
-/*#image {
-  display: none;
+#default-image {
+	display: none;
 }
-*/
+#new-game {
+	display: none;
+}
