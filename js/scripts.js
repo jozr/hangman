@@ -33,17 +33,20 @@ var Hangman = {
 $(document).ready(function() {
   var currentHangman;
   var gamestatus = 1;
-  $("#create-a-game").click(function () {
-    var listOfWords = ["uncopyrightable", "hunters", "troublemaking", "metalwork", "boyfriends", "clothespins"];
 
-    var myHangman = Object.create(Hangman)
-    myHangman.initialize(listOfWords[parseInt(Math.random()*6)]);
-    myHangman.blankArray();
-    currentHangman = myHangman;
+    $("#create-a-game").click(function () {
+      var listOfWords = ["uncopyrightable", "hunters", "troublemaking", "metalwork", "boyfriends", "clothespins"];
 
-    $("#default-image").show();
-    $("#new-game").show();
-  });
+      var myHangman = Object.create(Hangman)
+      myHangman.initialize(listOfWords[parseInt(Math.random()*6)]);
+      myHangman.blankArray();
+      currentHangman = myHangman;
+      $("#show-result").text(currentHangman.result.join(" "));
+
+      $("#default-image").show();
+      $("#new-game").show();
+    });
+
 
   $("form#add-letter").submit(function (event) {
     event.preventDefault();
@@ -60,9 +63,11 @@ $(document).ready(function() {
         gamestatus += 1;
       } else {
         alert("GAME OVER");
+        location.reload();
       }
       $("#default-image").hide();
       $("#image").empty().append("<img src='img/hangman" + gamestatus + ".png'>");
+      $("#show-result").text(currentHangman.result.join(" "));
 
     } else {
        $("#show-result").text(currentHangman.result.join(" "));
