@@ -10,7 +10,6 @@ var Hangman = {
     };
   },
   matchesLetters: function(userInput) {
-    var outputResult = [];
     var position = this.name.indexOf(userInput);
     var positionCheck = this.result.indexOf(userInput);
     if (position >= 0) {
@@ -25,13 +24,8 @@ var Hangman = {
   }
 };
 
-
-
-
-
-
 $(document).ready(function() {
-  var currentHangman;
+  var current;
   var gamestatus = 1;
 
     $("#create-a-game").click(function () {
@@ -40,8 +34,8 @@ $(document).ready(function() {
       var myHangman = Object.create(Hangman)
       myHangman.initialize(listOfWords[parseInt(Math.random()*6)]);
       myHangman.blankArray();
-      currentHangman = myHangman;
-      $("#show-result").text(currentHangman.result.join(" "));
+      current = myHangman;
+      $("#show-result").text(current.result.join(" "));
 
       $("#default-image").show();
       $("#new-game").show();
@@ -52,7 +46,7 @@ $(document).ready(function() {
     event.preventDefault();
 
     var userInput = $("input#input-letter").val();
-    var output = currentHangman.matchesLetters(userInput);
+    var output = current.matchesLetters(userInput);
 
     $("#input-letter").val('');
 
@@ -67,10 +61,10 @@ $(document).ready(function() {
       }
       $("#default-image").hide();
       $("#image").empty().append("<img src='img/hangman" + gamestatus + ".png'>");
-      $("#show-result").text(currentHangman.result.join(" "));
+      $("#show-result").text(current.result.join(" "));
 
     } else {
-       $("#show-result").text(currentHangman.result.join(" "));
+       $("#show-result").text(current.result.join(" "));
     }
 
   });
